@@ -2,16 +2,17 @@ const BASE_PRODUCTION: f64 = 221.0;
 const SIXTY_MINUTES: u32 = 60;
 
 pub fn production_rate_per_hour(speed: u8) -> f64 {
-    let ratio: f64;
-
     // pattern matching for ranges is only available in nighty version
-    if speed < 5 {
-        ratio = 1.0;
-    } else if speed >= 5 && speed < 9 {
-        ratio = 0.9;
-    } else {
-        ratio = 0.77;
-    }
+    let ratio =
+        if speed >= 1 && speed < 5 {
+            1.0
+        } else if speed >= 5 && speed < 9 {
+            0.9
+        } else if speed >= 9 && speed <= 10 {
+           0.77
+        } else {
+          0.0
+        };
 
     speed as f64 * BASE_PRODUCTION * ratio
 }
