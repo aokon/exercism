@@ -7,9 +7,9 @@ defmodule WordCount do
   @spec count(String.t()) :: map
   def count(sentence) do
     sentence
-    |> String.split(~r{[[:blank:]_]})
+    |> String.split(~r{[[:blank:]]|,|_})
     |> Enum.reduce(%{}, fn(sentence_part, acc) ->
-      matches = Regex.run(~r{[[:alnum:]\-]+}u, sentence_part)
+      matches = Regex.run(~r{([[:alnum:]]+'[[:alnum:]])|([[:alnum:]\-]+)}u, sentence_part)
 
       case matches do
         nil -> acc
